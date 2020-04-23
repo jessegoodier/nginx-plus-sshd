@@ -63,8 +63,8 @@ RUN chown -R nginx:nginx /etc/nginx \
  # Remove the cert/keys from the image
  #&& rm /etc/ssl/nginx/nginx-repo.crt /etc/ssl/nginx/nginx-repo.key
 
-# EXPOSE ports, HTTP 80, HTTPS 443 and, Nginx status page 8080
 
+COPY etc/nginx /root/nginx
 RUN git clone https://github.com/jessegoodier/NGINX-101-Workshop-UDF.git /root/udf
 
 #CMD ["nginx", "-g", "daemon off;"]
