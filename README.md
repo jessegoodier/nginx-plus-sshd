@@ -1,2 +1,3 @@
 # NGINX-Plus-SSHD
-Dockerfile with NGINX Plus and SSHD, for fun
+Dockerfile with NGINX Plus and SSHD, for quick troubleshooting.
+
