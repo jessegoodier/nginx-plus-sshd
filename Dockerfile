@@ -15,7 +15,7 @@ RUN chmod 644 /etc/ssl/nginx/* \
 # Install prerequisite packages, vim for editing, then Install NGINX Plus
   && set -x \
   && apt-get update && apt-get upgrade -y \
-  && apt-get install --no-install-recommends --no-install-suggests -y apt-transport-https ca-certificates gnupg1 curl python2.7 procps net-tools vim-tiny joe jq less git openssh-server \
+  && apt-get install --no-install-recommends --no-install-suggests -y apt-transport-https ca-certificates gnupg1 curl python2.7 procps net-tools vim-tiny joe jq less git openssh-server openssh-client \
   && \
   NGINX_GPGKEY=573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62; \
   found=''; \
