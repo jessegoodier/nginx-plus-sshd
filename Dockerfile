@@ -65,8 +65,6 @@ RUN chown -R nginx:nginx /etc/nginx \
 
 
 COPY etc/nginx /root/nginx
-RUN git clone https://github.com/jessegoodier/NGINX-101-Workshop-UDF.git /root/udf
-
 #CMD ["nginx", "-g", "daemon off;"]
 
 RUN mkdir /var/run/sshd
