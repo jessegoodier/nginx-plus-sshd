@@ -15,7 +15,7 @@ RUN chmod 644 /etc/ssl/nginx/* \
 # Install prerequisite packages, vim for editing, then Install NGINX Plus
   && set -x \
   && apt-get update && apt-get upgrade -y \
-  && apt-get install --no-install-recommends --no-install-suggests -y apt-transport-https ca-certificates gnupg1 curl python2.7 procps net-tools vim-tiny joe jq less git openssh-server openssh-client \
+  && apt-get install --no-install-recommends --no-install-suggests -y apt-transport-https ca-certificates gnupg1 curl python2.7 procps net-tools vim-tiny joe jq less git openssh-server openssh-client sudo \
   && \
   NGINX_GPGKEY=573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62; \
   found=''; \
@@ -63,9 +63,19 @@ RUN chown -R nginx:nginx /etc/nginx \
  # Remove the cert/keys from the image
  #&& rm /etc/ssl/nginx/nginx-repo.crt /etc/ssl/nginx/nginx-repo.key
 
+#add ubuntu and workshop users for testing
+RUN useradd -m ubuntu && echo "ubuntu:ubuntu" | chpasswd && adduser ubuntu sudo
+COPY authorized_keys /home/ubuntu/.ssh/authorized_keys
+RUN mkdir -p /home/ubuntu/.ssh
+RUN chmod 400 /home/ubuntu/.ssh/authorized_keys
+RUN chown ubuntu:ubuntu /home/ubuntu/.ssh
 
-COPY etc/nginx /root/nginx
-#CMD ["nginx", "-g", "daemon off;"]
+RUN useradd -m workshop && echo "workshop:workshop" | chpasswd && adduser workshop sudo
+RUN mkdir -p /home/workshop/.ssh
+COPY authorized_keys /home/workshop/.ssh/authorized_keys
+RUN chmod 400 /home/workshop/.ssh/authorized_keys
+RUN chown workshop:workshop /home/workshop/.ssh
+RUN echo jesse ALL=(ALL) NOPASSWD: ALL" /etc
 
 RUN mkdir /var/run/sshd
 
