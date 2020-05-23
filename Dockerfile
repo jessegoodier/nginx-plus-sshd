@@ -1,6 +1,6 @@
 FROM ubuntu:bionic
 
-LABEL maintainer="jesse.goodier@nginx.com"
+LABEL maintainer="jessegoodier@gmail.com"
 
 # Set Nginx Plus version
 ENV NGINX_PLUS_VERSION 21
@@ -68,14 +68,15 @@ RUN useradd -m ubuntu && echo "ubuntu:ubuntu" | chpasswd && adduser ubuntu sudo
 COPY authorized_keys /home/ubuntu/.ssh/authorized_keys
 RUN mkdir -p /home/ubuntu/.ssh
 RUN chmod 400 /home/ubuntu/.ssh/authorized_keys
-RUN chown ubuntu:ubuntu /home/ubuntu/.ssh
+RUN chown -R ubuntu:ubuntu /home/ubuntu/.ssh/
+RUN echo "ubuntu ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
 
 RUN useradd -m workshop && echo "workshop:workshop" | chpasswd && adduser workshop sudo
 RUN mkdir -p /home/workshop/.ssh
 COPY authorized_keys /home/workshop/.ssh/authorized_keys
 RUN chmod 400 /home/workshop/.ssh/authorized_keys
-RUN chown workshop:workshop /home/workshop/.ssh
-RUN echo jesse ALL=(ALL) NOPASSWD: ALL" /etc
+RUN chown -R workshop:workshop /home/workshop/.ssh/
+RUN echo "workshop ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
 
 RUN mkdir /var/run/sshd
 
